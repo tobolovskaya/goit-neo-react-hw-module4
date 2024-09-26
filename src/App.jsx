@@ -9,7 +9,7 @@ import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import toast, { Toaster } from 'react-hot-toast';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
-const ACCESS_KEY = 'your-access-key';
+const ACCESS_KEY = '75St0Bx2Z_Z7IEe3NFVVhkEkSHnvjnpxHHDRTpWyR9M';
 
 const App = () => {
   const [images, setImages] = useState([]);
