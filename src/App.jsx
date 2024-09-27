@@ -18,6 +18,7 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [modalImage, setModalImage] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (!query) return;
@@ -45,18 +46,21 @@ const App = () => {
 
   const handleLoadMore = () => setPage((prevPage) => prevPage + 1);
 
-  const openModal = (image) => setModalImage(image);
-  const closeModal = () => setModalImage(null);
+  const handleImageClick = (image) => {
+    setModalImage(image); 
+    setShowModal(true);  
+  };
+
+  const closeModal = () => {
+    setShowModal(false); 
+  };
 
   return (
     <div>
-      <SearchBar onSubmit={handleSearch} />
-      {error && <ErrorMessage message={error} />}
-      <ImageGallery images={images} onClick={openModal} />
-      {loading && <Loader />}
-      {images.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
-      {modalImage && <ImageModal isOpen={!!modalImage} onClose={closeModal} image={modalImage} />}
-      <Toaster position="top-right" />
+      <ImageGallery images={images} onImageClick={handleImageClick} />
+      {showModal && <ImageModal image={modalImage} onClose={closeModal} />}
+      <Loader />
+      <LoadMoreBtn />
     </div>
   );
 };
