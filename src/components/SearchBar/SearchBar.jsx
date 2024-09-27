@@ -5,14 +5,10 @@ import styles from './SearchBar.module.css';
 const SearchBar = ({ onSubmit }) => {
   const [query, setQuery] = useState('');
 
-  const handleChange = (e) => {
-    setQuery(e.target.value);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (query.trim() === '') {
-      toast.error('Please enter a search term.');
+    if (!query.trim()) {
+      toast.error('Please enter a search query');
       return;
     }
     onSubmit(query);
@@ -20,14 +16,16 @@ const SearchBar = ({ onSubmit }) => {
   };
 
   return (
-    <header className={styles.searchBar}>
-      <form onSubmit={handleSubmit} className={styles.form}>
+    <header className={styles.searchbar}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <input
           type="text"
-          className={styles.input}
           placeholder="Search images and photos"
           value={query}
-          onChange={handleChange}
+          onChange={(e) => setQuery(e.target.value)}
+          className={styles.input}
+          autoComplete="off"
+          autoFocus
         />
         <button type="submit" className={styles.button}>Search</button>
       </form>
